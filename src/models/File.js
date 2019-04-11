@@ -24,7 +24,8 @@ const File = new mongoose.Schema(
 // precisa ser function normal para ter acesso ao this (se refere ao 'const File' registro de arquivo)
 // encondeURIComponent - o texto fica em formato de URL
 File.virtual('url').get(function(){
-  return `http://localhost:3333/files/${encodeURIComponent(this.path)}`
+  const url = process.env.URL || 'http://localhost:3333'
+  return `${url}/files/${encodeURIComponent(this.path)}`
 })
 
 module.exports = mongoose.model("File", File)

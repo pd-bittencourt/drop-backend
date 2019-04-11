@@ -41,5 +41,5 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')))
 app.use(require('./routes'))
 
 // vars ambiente: podem sobrescrever infos dentro da app dependendo do ambiente que estamos usando
-// a var PORT é definida automaticamente pelo heroku (process.event.PORT || )
-server.listen(3333)
+// a var PORT é definida automaticamente pelo heroku (process.env.PORT || )
+server.listen(process.env.PORT || 3333)
