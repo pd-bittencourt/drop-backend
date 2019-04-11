@@ -7,12 +7,25 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
+io.on("connection", socket => {
+  // entender melhor (min 1:05:00)
+  // enviar msg em tempo real
+  socket.on('connectRoom', box => {
+    socket.join(box)
+  })
+})
+
 mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-wqbm5.mongodb.net/omnistack?retryWrites=true', {
   useNewUrlParser: true
 })
 // middlewares é uma função que recebe requisição e modifica ou retorna uma resposta. Interceptador
 // app.use é quando quero cadastrar um modulo dentro do express
 // urlencoded permite envio de arquivos
+
+app.use((req, res, next) => {
+  req.io = io
+  return next()
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
