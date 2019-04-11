@@ -1,8 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
+const cors = require('cors')
 
 const app = express()
+
+// cors determina quem podera acessar nossa app
+// sem esse modulo o front nao consegue acessar o back estando em um dominio diferente
+app.use(cors())
+
 // protocolo http vem por padrão no node
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
