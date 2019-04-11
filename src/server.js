@@ -3,6 +3,9 @@ const mongoose = require('mongoose')
 const path = require('path')
 
 const app = express()
+// protocolo http vem por padrão no node
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
 
 mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-wqbm5.mongodb.net/omnistack?retryWrites=true', {
   useNewUrlParser: true
@@ -20,4 +23,4 @@ app.use(require('./routes'))
 
 // vars ambiente: podem sobrescrever infos dentro da app dependendo do ambiente que estamos usando
 // a var PORT é definida automaticamente pelo heroku (process.event.PORT || )
-app.listen(3333)
+server.listen(3333)
